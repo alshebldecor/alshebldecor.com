@@ -843,44 +843,33 @@
         },
 
         ajaxContactForm: function() {
+            function handleContactResponse(form, { result, cls }) {
+                form.prepend(
+                    $('<div />', {
+                        'class': 'wprt-alert ' + cls,
+                        'text' : result
+                    }).append(
+                        $('<a class="remove" href="#"><i class="fa fa-close"></i></a>')
+                    )
+                );
+
+                form.find(':input').not('.submit').val('');
+            }
             if ( $().validate ) {        
                 $('.wprt-contact-form').each(function() {
                     $(this).validate({
                         submitHandler: function( form ) {
-                            var
-                            $form = $(form),
-                            str = $form.serialize();
-
-                            $.ajax({
-                                type: "POST",
-                                url:  $form.attr('action'),
-                                data: str,
-                                beforeSend: function () {
-                                    $form.find('.wprt-alert').remove();
-                                },
-                                success: function( msg ) {
-                                    var result, cls;
-
-                                    if ( msg == 'Success' ) {
-                                        result = 'Your message has been sent. Thank you!';
-                                        cls = 'success';
-                                    } else {
-                                        result = 'Error sending email.';
-                                        cls = 'error';
-                                    }
-
-                                    $form.prepend(
-                                        $('<div />', {
-                                            'class': 'wprt-alert ' + cls,
-                                            'text' : result
-                                        }).append(
-                                            $('<a class="remove" href="#"><i class="fa fa-close"></i></a>')
-                                        )
-                                    );
-
-                                    $form.find(':input').not('.submit').val('');
-                                }
-                            });
+                            const $form = $(form);
+                            emailjs.sendForm('service_ycxrocp', 'template_dtfym65', form)
+                                .then(() => {
+                                    const result = 'Your message has been sent. Thank you!';
+                                    const cls = 'success';
+                                    handleContactResponse($form, { result, cls });
+                                }, (error) => {
+                                    const result = 'Error sending email.';
+                                    const cls = 'error';
+                                    handleContactResponse($form, { result, cls });
+                                });
                         }
                     });
                 });

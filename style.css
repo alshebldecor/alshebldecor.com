@@ -1589,3 +1589,7 @@ only screen and (                min-resolution: 2dppx){
 		background-size: 10px 24px;
 	}
 }
+
+
+/* Custom style */
+#footer-widgets .widget.widget_information ul li:before { display: none; }
