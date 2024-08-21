@@ -929,7 +929,7 @@
                         }
                     },
                     getlatlng:{
-                        address: 'Doha, Qatar',
+                        address: '694, Al Rawdah Street Alwakra, Qatar',
                         callback: function(results) {
                             if ( !results ) return;
                             $(this).gmap3('get').setCenter(new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
@@ -937,7 +937,7 @@
                                 marker:{
                                     latLng:results[0].geometry.location,
                                     options:{
-                                        icon: 'assets/img/marker.png'
+                                        // icon: 'assets/img/marker.png'
                                     }
                                 }
                             });

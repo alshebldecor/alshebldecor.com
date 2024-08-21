@@ -1593,3 +1593,10 @@ only screen and (                min-resolution: 2dppx){
 
 /* Custom style */
 #footer-widgets .widget.widget_information ul li:before { display: none; }
+
+.services-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
